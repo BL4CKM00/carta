@@ -370,13 +370,22 @@ E para concluir, se você permite... eu gostaria de sentir o cheirinho de casa k
 
   /* ---- ABRIR CARTA ---- */
   function abrirCarta() {
-    document.getElementById('tela-inicio').style.display = 'none';
-    const tc = document.getElementById('tela-carta');
-    tc.style.display = 'flex';
-    setTimeout(() => document.getElementById('title').classList.add('visible'), 300);
-    setTimeout(() => document.getElementById('music-bar').classList.add('visible'), 800);
-    setTimeout(typeWriter, 1100);
-  }
+      document.getElementById('tela-inicio').style.display = 'none';
+      const tc = document.getElementById('tela-carta');
+      tc.style.display = 'flex';
+      setTimeout(() => document.getElementById('title').classList.add('visible'), 300);
+      setTimeout(() => document.getElementById('music-bar').classList.add('visible'), 800);
+      setTimeout(typeWriter, 1100);
+  
+      const audio = document.getElementById('audio');
+      const dot   = document.getElementById('music-dot');
+      const label = document.getElementById('music-label');
+      audio.play().then(() => {
+        musicaAtiva = true;
+        dot.classList.add('playing');
+        label.textContent = '♪ Until I Found You · Stephen Sanchez — tocando ♬';
+      }).catch(() => {});
+    }
 
   /* ---- TYPEWRITER ---- */
   function typeWriter() {
