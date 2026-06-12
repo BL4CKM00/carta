@@ -433,31 +433,26 @@ E para concluir, se você permite... eu gostaria de sentir o cheirinho de casa k
 
   /* ---- MÚSICA ---- */
   function toggleMusic() {
-    const audio = document.getElementById('audio');
-    const dot   = document.getElementById('music-dot');
-    const label = document.getElementById('music-label');
-
-    if (!audio.src || audio.networkState === 3) {
-      // arquivo não encontrado
-      label.textContent = '♪ Coloque "until-i-found-you.mp3" na mesma pasta';
-      return;
+      const audio = document.getElementById('audio');
+      const dot   = document.getElementById('music-dot');
+      const label = document.getElementById('music-label');
+  
+      if (musicaAtiva) {
+        audio.pause();
+        musicaAtiva = false;
+        dot.classList.remove('playing');
+        label.textContent = '♪ Until I Found You · Stephen Sanchez — toque para ouvir';
+      } else {
+        audio.play().then(() => {
+          musicaAtiva = true;
+          dot.classList.add('playing');
+          label.textContent = '♪ Until I Found You · Stephen Sanchez — tocando ♬';
+        }).catch((err) => {
+          console.log('Erro ao tocar:', err);
+          label.textContent = '♪ Erro ao tocar a música';
+        });
+      }
     }
-
-    if (musicaAtiva) {
-      audio.pause();
-      musicaAtiva = false;
-      dot.classList.remove('playing');
-      label.textContent = '♪ Until I Found You — toque para ouvir';
-    } else {
-      audio.play().then(() => {
-        musicaAtiva = true;
-        dot.classList.add('playing');
-        label.textContent = '♪ Until I Found You — tocando ♬';
-      }).catch(() => {
-        label.textContent = '♪ Coloque "until-i-found-you.mp3" na mesma pasta';
-      });
-    }
-  }
 
   /* ---- INIT ---- */
   spawnHearts();
